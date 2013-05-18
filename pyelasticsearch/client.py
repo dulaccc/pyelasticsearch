@@ -250,9 +250,9 @@ class ElasticSearch(object):
 
         self.logger.debug('response status: %s', resp.status_code)
         prepped_response = self._decode_response(resp)
+        self.logger.debug('got response %s', prepped_response)
         if resp.status_code >= 400:
             self._raise_exception(resp, prepped_response)
-        self.logger.debug('got response %s', prepped_response)
         return prepped_response
 
     def _raise_exception(self, response, decoded_body):
