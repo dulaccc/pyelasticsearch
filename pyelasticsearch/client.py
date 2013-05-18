@@ -258,6 +258,8 @@ class ElasticSearch(object):
     def _raise_exception(self, response, decoded_body):
         """Raise an exception based on an error-indicating response from ES."""
         error_message = decoded_body.get('error', decoded_body)
+        if isinstance(error_message, dict):
+            error_message = error_message.get('message', decoded_body)
 
         error_class = ElasticHttpError
         if response.status_code == 404:
