@@ -279,7 +279,8 @@ class ElasticSearch(object):
         """Return a native-Python representation of a response's JSON blob."""
         try:
             json_response = response.json()
-        except JSONDecodeError:
+        except JSONDecodeError as inst:
+            self.logger.error(inst)
             raise InvalidJsonResponseError(response)
         return json_response
 
